@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static%}
+
+    {% block title %}
+        <title>index.html</title>
+    {% endblock %}
+
+    {% block content %}
+        <div class="col -8">
+          <h3>New questions
+            <a class = "notimp" href="#">Hot questions</a>
+          </h3>
+            {% for question in questions %}
+          <div class="row">
+            <div class="media mt-5 ">
+              <div class="col -1 p-0">
+                <p class="mb-1"><img src=" {% static "img/port.jpg"%}" width="100px" height="100px" class="mr-3" alt="pic"></p>
+                <p>
+                  <button class="btn btn-link"><img src="{% static "img/like.png" %} " width="25px" height="25px"></button>
+                  <button class="btn btn-link"><img src="{% static "img/dislike.png" %}" width="25px" height="25px"></button>
+                </p>
+              </div>
+              <div class="col-10 p-0">
+                <div class="media-body">
+                  <a href="{% url 'question' question.id %}"><h3>{{ question.name }}</h3></a>
+                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                </div>
+              </div>
+            </div>
+          </div>
+            {% endfor %}
+        </div>
+    {% endblock %}
+
+{# paginator #}
+{#    <nav aria-label="Page navigation example" class="ml-5">#}
+{#  <ul class="pagination mt-5">#}
+{#    <li class="page-item"><a class="page-link" href="#">Previous</a></li>#}
+{#    <li class="page-item"><a class="page-link" href="#">1</a></li>#}
+{#    <li class="page-item"><a class="page-link" href="#">2</a></li>#}
+{#    <li class="page-item"><a class="page-link" href="#">3</a></li>#}
+{#    <li class="page-item"><a class="page-link" href="#">Next</a></li>#}
+{#  </ul>#}
+{#</nav>#}

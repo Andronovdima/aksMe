@@ -1,0 +1,82 @@
+    {% extends "base.html" %}
+    {% load static%}
+        {% block title %}
+            <title>Question.html</title>
+
+        {% endblock %}
+    {% block content %}
+    <div class="col -8">
+          <h3>New questions 
+            <a class = "notimp" href="#">Hot questions</a>
+          </h3>
+          <div class="row">
+            <div class="media mt-5 p-4 border border-dark">
+              <div class="col -1 p-0">
+                <p class="mb-1"><img src="{% static "img/port.jpg" %}" width="150px" height="150px" class="mr-3" alt="pic"></p>
+                <p>
+                    <span class="border border-dark p-1">15</span>
+                    <button class="btn btn-link"><img src="{% static "img/like.png" %}" width="33px" height="33px"></button>
+                    <button class="btn btn-link"><img src="{% static "img/dislike.png" %}" width="33px" height="33px"></button>
+                </p>
+              </div>
+              <div class="col-10 p-0">
+                <div class="media-body content-media">
+                  <h3 class="mt-0 ">How to build a Moon park!?</h3>
+                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                    <p></p>
+                    <p>Tags <a href="#">blackjack</a> <a href="">bender </a></p>
+                </div>
+              </div>
+            </div>         
+          </div>
+          <div class="row mt-4">
+            <h3>Comments</h3>
+            <div class="media mt-5 ">
+              <div class="col -1 p-0">
+                <p class="mb-1"><img src="{% static "img/port.jpg" %}" width="100px" height="100px" class="mr-3" alt="pic"></p>
+                <p>
+                  <span class="border border-dark p-1">15</span>
+                  <button class="btn btn-link m-0"><img src="{% static "img/like.png" %}" width="15px" height="15px"></button>
+                  <button class="btn btn-link"><img src="{% static "img/dislike.png" %}" width="15px" height="15px"></button>
+                </p>
+              </div>
+              <div class="col-10 p-0">
+                <div class="media-body">
+                  <h5 class="mt-0"></h5>
+                    Дается систематическое изложение основ теории вероятностей, проиллюстрированное большим числом подробно рассмотренных примеров, в том числе и прикладного содержания. Серьезное внимание уделено рассмотрению
+                    вопросов методологического характера.
+                </div>
+              </div>
+            </div>         
+          </div>
+          <div class="row">
+            <div class="media mt-5 ">
+              <div class="col -1 p-0">
+                <p class="mb-1"><img src="{% static "img/port.jpg" %}" width="100px" height="100px" class="mr-3" alt="pic"></p>
+                <p>
+                    <span class="border border-dark p-1">15</span>
+                    <button class="btn btn-link"><img src="{% static "img/like.png" %}" width="15px" height="15px"></button>
+                    <button class="btn btn-link"><img src="{% static "img/dislike.png" %}" width="15px" height="15px"></button>
+                </p>
+              </div>
+              <div class="col-10 p-0">
+                <div class="media-body">
+                  <h5 class="mt-0"></h5>
+                    Настоящее издание значительно отличается по содержанию от 5-го (1969 г.):
+                    введены дополнительные параграфы математического и прикладного характера, добавлен большой очерк истории теории вероятностей, содержащий результаты исследований самого последнего времени.
+                </div>
+              </div>
+            </div>         
+          </div>
+        </div>
+    {% endblock %}
+
+{#    <nav aria-label="Page navigation example" class="ml-5">#}
+{#  <ul class="pagination mt-5">#}
+{#    <li class="page-item"><a class="page-link" href="#">Previous</a></li>#}
+{#    <li class="page-item"><a class="page-link" href="#">1</a></li>#}
+{#    <li class="page-item"><a class="page-link" href="#">2</a></li>#}
+{#    <li class="page-item"><a class="page-link" href="#">3</a></li>#}
+{#    <li class="page-item"><a class="page-link" href="#">Next</a></li>#}
+{#  </ul>#}
+{#</nav>#}

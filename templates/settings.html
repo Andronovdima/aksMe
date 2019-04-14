@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    <title>Settings</title>
+{% endblock %}
+
+{% block content %}
+    <div class="col -8">
+        <div class="row">
+            <form>
+                <div class="form-group row">
+                    <label for="colFormLabelLg" class="col-sm-3 col-form-label col-form-label-lg">Login</label>
+                    <div class="col-sm-9">
+                      <input type="email" class="form-control form-control-lg" id="colFormLabelLg" placeholder="dr_pepper">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="colFormLabelLg" class="col-sm-3 col-form-label col-form-label-lg">Email</label>
+                    <div class="col-sm-9">
+                      <input type="email" class="form-control form-control-lg" id="colFormLabelLg" placeholder="foxinnewzeland@gmail.com">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="colFormLabelLg" class="col-sm-3 col-form-label col-form-label-lg">Nickname</label>
+                    <div class="col-sm-9">
+                      <input type="email" class="form-control form-control-lg" id="colFormLabelLg" placeholder="Dr.pepper">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="colFormLabelLg" class="col-sm-3 col-form-label col-form-label-lg">Upload avatar</label>
+                    <div class="col-sm-9">
+                     <img class = "settings_image" src = "{% static "img/avatar.png" %}">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="customFile">
+                            <label class="custom-file-label mt-3" for="customFile">Choose file</label>
+                            <button type="button" class="btn btn-primary btn-lg w-25 ml-0 mt-5">Ask</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    <title>register</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="col -8">
+        <div class="row">
+            <form class="mt-5">
+                <div class="form-group row">
+                    <label for="colFormLabelLg" class="col-sm-3 col-form-label col-form-label-lg">Login</label>
+                    <div class="col-sm-9">
+                      <input type="email" class="form-control form-control-lg" id="colFormLabelLg" placeholder="dr_pepper">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="colFormLabelLg" class="col-sm-3 col-form-label col-form-label-lg">Email</label>
+                    <div class="col-sm-9">
+                      <input type="email" class="form-control form-control-lg" id="colFormLabelLg" placeholder="foxinnewzeland@gmail.com">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="colFormLabelLg" class="col-sm-3 col-form-label col-form-label-lg">Nickname</label>
+                    <div class="col-sm-9">
+                      <input type="email" class="form-control form-control-lg" id="colFormLabelLg" placeholder="Dr.pepper">
+                    </div>
+                </div>
+                 <div class="form-group row">
+                     <label for="colFormLabelLg" class="col-sm-3 col-form-label col-form-label-lg">Password</label>
+                     <div class="col-sm-9">
+                         <input type="password" class="form-control-lg " id="exampleInputPassword1" placeholder="*********">
+                     </div>
+                 </div>
+                <div class="form-group row">
+                     <label for="colFormLabelLg" class="col-sm-3 col-form-label col-form-label-lg">Repeat password</label>
+                     <div class="col-sm-9">
+                         <input type="password" class="form-control-lg " id="exampleInputPassword1" placeholder="*********">
+                     </div>
+                 </div>
+                <div class="form-group row">
+                    <label for="colFormLabelLg" class="col-sm-3 col-form-label col-form-label-lg">Upload avatar</label>
+                    <div class="col-sm-9">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="customFile">
+                            <label class="custom-file-label mt-3" for="customFile">c:\avatar.png</label>
+                            <button type="button" class="btn btn-primary btn-lg w-25 ml-0 mt-5">Register</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+{% endblock %}

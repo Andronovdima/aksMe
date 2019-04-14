@@ -1,0 +1,34 @@
+p {
+	color: #388888;
+}
+
+a.notimp {
+	font-size: 0.7em;
+	margin-left: 25px;
+}
+h3.leftMenu {
+	margin-left: 15%;
+}
+a.cloudTag_1 {
+	font-size: 1.2em;
+	margin-left: 5%;
+	color: red;
+}
+a.cloudTag_2 {
+	font-size: 1.2em;
+	margin-left: 5%;
+	color: green;
+}
+a.cloudTag_3 {
+	font-size: 1.2em;
+	margin-left: 5%;
+	color: brown;
+}
+div.media-body.content-media{
+	max-width: 520px; 
+}
+
+img.settings_image {
+	width : 25%;
+	height: auto;
+}
