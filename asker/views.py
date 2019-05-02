@@ -12,20 +12,20 @@ from asker.models import Profile , Question, Tag
 
 from django.contrib import auth
 
+
 def index(request):
 
     questions_list = Question.objects.new()
-    objects_page  = paginate(questions_list , request , 4)
+    objects_page = paginate(questions_list, request, 4)
     users_top = Profile.objects.user_top()
     popular_tags = Tag.objects.popular_tags()
+    # questionTags = Tag.objects.questions()
     main = {}
-    main ['questions'] = objects_page
-    main ['is_login'] = 0
-    main ['users_top'] = users_top
-    main ['popular_tags'] = popular_tags
-    return render (request , 'index.html' , context = main)
-
-
+    main['questions'] = objects_page
+    main['is_login'] = 0
+    main['users_top'] = users_top
+    main['popular_tags'] = popular_tags
+    return render(request, 'index.html', context=main)
 
 
 def login (request):

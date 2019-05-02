@@ -10,8 +10,8 @@
               <a class = "notimp" href="{% url 'index' %}">New questions</a>
               <a class = "notimp" href="{% url 'hot' %}">Hot questions</a>
           </h3>
-          <div class="row">
-            <div class="media mt-5 p-4 border border-dark">
+          <div class="row border border-dark mt-4">
+            <div class="media mt-4 p-4">
               <div class="col -1 p-0">
                 <p class="mb-1"><img src="{% static "img/port.jpg" %}" width="150px" height="150px" class="mr-3" alt="pic"></p>
                 <p>
@@ -25,7 +25,7 @@
                   <h3 class="mt-0 ">{{ question.title }}</h3>
                     {{ question.text }}
                     <p>Tags
-                        {% for tag in popular_tags %}
+                        {% for tag in question.tags.all %}
                             <a href="{% url 'tag' tag.tagname %}"> {{tag.tagname}}</a>
                         {% endfor %}
                     </p>
@@ -33,51 +33,42 @@
               </div>
             </div>         
           </div>
-          <div class="row mt-4">
-            <h3>Answers</h3>
-            <div class="media mt-5 ">
-              <div class="col -1 p-0">
-                <p class="mb-1"><img src="{% static "img/port.jpg" %}" width="100px" height="100px" class="mr-3" alt="pic"></p>
-                <p>
-                  <span class="border border-dark p-1">15</span>
-                  <button class="btn btn-link m-0"><img src="{% static "img/like.png" %}" width="15px" height="15px"></button>
-                  <button class="btn btn-link"><img src="{% static "img/dislike.png" %}" width="15px" height="15px"></button>
-                </p>
-              </div>
-              <div class="col-10 p-0">
-                <div class="media-body">
-                  <h5 class="mt-0"></h5>
-                    Дается систематическое изложение основ теории вероятностей, проиллюстрированное большим числом подробно рассмотренных примеров, в том числе и прикладного содержания. Серьезное внимание уделено рассмотрению
-                    вопросов методологического характера.
-                </div>
-              </div>
-            </div>         
-          </div>
+    
+{# Answers #}
+        <h3 class="mt-4">Answers:</h3>
+        {% for answer in answers %}
           <div class="row">
             <div class="media mt-5 ">
               <div class="col -1 p-0">
                 <p class="mb-1"><img src="{% static "img/port.jpg" %}" width="100px" height="100px" class="mr-3" alt="pic"></p>
                 <p>
-                    <span class="border border-dark p-1">15</span>
-                    <button class="btn btn-link"><img src="{% static "img/like.png" %}" width="15px" height="15px"></button>
-                    <button class="btn btn-link"><img src="{% static "img/dislike.png" %}" width="15px" height="15px"></button>
+                  <span class="border border-dark p-1">15</span>
+                  <button class="btn btn-link m-0 p-1"><img src="{% static "img/like.png" %}" width="15px" height="15px"></button>
+                  <button class="btn btn-link p-1"><img src="{% static "img/dislike.png" %}" width="15px" height="15px"></button>
                 </p>
               </div>
               <div class="col-10 p-0">
                 <div class="media-body">
                   <h5 class="mt-0"></h5>
-                    Настоящее издание значительно отличается по содержанию от 5-го (1969 г.):
-                    введены дополнительные параграфы математического и прикладного характера, добавлен большой очерк истории теории вероятностей, содержащий результаты исследований самого последнего времени.
+                   {{ answer.text }}
                 </div>
               </div>
             </div>         
           </div>
+        {% endfor %}
+          <form class="mt-5">
+              <div class="form-group">
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Input your answer here"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Answer</button>
+          </form>
         </div>
+
     {% endblock %}
 
 
     {% block paginator %}
-{#        {% include 'paginator.html' with page=answers %}#}
+        {% include 'paginator.html' with page=answers %}
     {% endblock %}
 
 

@@ -27,6 +27,9 @@ class TagManager(models.Manager):
     def popular_tags(self):
         return self.order_by('-count')[:20]
 
+    def question_tags (self, question):
+        return question.tag_set.all.order_by('-count')[:3]
+
 
 class Profile (models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE , null = True)
@@ -49,24 +52,25 @@ class Tag (models.Model):
 
 class Question(models.Model):
     author = models.ForeignKey(
-        to = Profile , on_delete=models.CASCADE , null = True
+        to=Profile, on_delete=models.CASCADE, null=True
     )
     rating = models.IntegerField(default=0)
     title = models.CharField(max_length=128)
     text = models.TextField()
-    created_at = models.DateTimeField(auto_now_add = True)
+    created_at = models.DateTimeField(auto_now_add=True)
     tags = models.ManyToManyField(to=Tag)
+    amountAnswers = models.IntegerField(default=0)
     objects = QuestionManager()
 
     def __str__(self):
         return self.title
 
 
-
 class Answer (models.Model):
     author = models.ForeignKey(to=Profile, on_delete=models.CASCADE )
     text = models.TextField()
     question = models.ForeignKey(to=Question , on_delete=models.CASCADE)
+
     def __str__(self):
         return self.question.title
 
