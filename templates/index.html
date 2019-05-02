@@ -26,8 +26,14 @@
                 <div class="media-body">
                   <a href="{% url 'question' question.id %}"><h3>{{ question.title }}</h3></a>
                     {{ question.text }}
-                    <p>
-                        <a href="">Answers:</a>
+                    <p class="mt-3">
+                        <a class= "text-success"href="{% url 'question' question.id %}">Answers: ({{ question.amountAnswers }})</a>
+                        <span class = "tags ml-5">
+                            Tags:
+                            {% for tag in question.tags.all %}
+                                <a href="{% url 'tag' tag.tagname %}">{{ tag.tagname }}</a>
+                            {% endfor %}
+                        </span>
                     </p>
                 </div>
               </div>
