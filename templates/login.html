@@ -23,10 +23,19 @@
                         <div class="col-sm-9">
                              <input type="password" class="form-control-lg " id="exampleInputPassword1" placeholder="*********">
                             <button type="button" class="btn btn-primary btn-lg ml-0 mt-4">Log in!</button>
-                            <p class="mt-4"><a href="#">Create new account</a></p>
+                            <p class="mt-4"><a href="{% url 'signup' %}">Create new account</a></p>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
 {% endblock %}
+
+
+# отрисовать формы с помощью форм
+
+<form action ="{% url 'login' %}" method="POST" novalidate>
+    {% csrf_token %}
+    {% include 'путь до реализован формы' %}
+</form>
+
