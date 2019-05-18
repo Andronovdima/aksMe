@@ -103,13 +103,13 @@ def paginate(objects_list, request, page_size=10):
     objects_page = paginator.get_page(page)
 
     return objects_page
-#
+
 
 def tag(request, tagname):
     flag = 1;
-    tag = get_object_or_404(Tag,tagname=tagname)
+    tag = get_object_or_404(Tag, tagname=tagname)
     questions = Tag.objects.questions(tag)
-    questions = paginate (questions, request,5)
+    questions = paginate (questions, request, 5)
     users_top = Profile.objects.user_top()
     popular_tags = Tag.objects.popular_tags()
     main = {}
@@ -118,16 +118,16 @@ def tag(request, tagname):
     main['users_top'] = users_top
     main['popular_tags'] = popular_tags
     main['tagname'] = tagname
-    return render(request,'index.html',context=main)
+    return render(request, 'index.html', context=main)
 
 def hot(request):
     questions = Question.objects.hot()
     questions = paginate (questions, request ,5)
     users_top = Profile.objects.user_top()
     popular_tags = Tag.objects.popular_tags()
-    main =  {}
+    main = {}
     main['questions'] = questions
     main['is_login'] = 0
     main['users_top'] = users_top
     main['popular_tags'] = popular_tags
-    return render(request,'index.html',context=main)
+    return render(request, 'index.html', context=main)
