@@ -28,7 +28,8 @@ urlpatterns = [
     path('login/', views.login, name ='login'),
     path('signup/', views.register, name ='signup'),
     path('tag/<str:tagname>/', views.tag, name ='tag'),
-    path('hot/' , views.hot , name = 'hot'),
+    path('hot/', views.hot , name = 'hot'),
+    path('logout/', views.logout_view , name='logout'),
 
 ]
 
