@@ -1,62 +1,71 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect , reverse
 from django.http import HttpResponse
 from django.core.paginator import Paginator
-
 from faker import Faker
 from django.core.paginator import EmptyPage, PageNotAnInteger
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 
 from asker.models import Profile , Question, Tag
 
-# from asker.forms import LoginForm
+from asker.forms import LoginForm , RegistrationForm, QuestionForm
 
 from django.contrib import auth
+from django.contrib.auth.models import User
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
-
     questions_list = Question.objects.new()
     objects_page = paginate(questions_list, request, 4)
     users_top = Profile.objects.user_top()
     popular_tags = Tag.objects.popular_tags()
     # questionTags = Tag.objects.questions()
     main = {}
-    main['questions'] = objects_page
     main['is_login'] = 0
+    main['questions'] = objects_page
     main['users_top'] = users_top
     main['popular_tags'] = popular_tags
+    if request.user.is_authenticated:
+        main['username'] = request.user.username
+        main['is_login'] = 1
     return render(request, 'index.html', context=main)
 
 
-def login (request):
-    flag = 0;
+def login(request):
+    if request.POST:
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            cdata = form.cleaned_data
+            user = auth.authenticate(**cdata)
+            if user is not None:
+                auth.login(request, user)
+                return redirect('/')  # TODO: правильные редиректы
+            form.add_error(None, 'no such user')
+    else:
+        form = LoginForm()
+    flag = 0
     users_top = Profile.objects.user_top()
     popular_tags = Tag.objects.popular_tags()
+    return render(request, 'login.html', {
+        'form': form,
+        'is_login': flag,
+        'users_top': users_top,
+        'popular_tags': popular_tags
+    })
 
-    return render(request, 'login.html', {'is_login': flag,
-                                          'users_top': users_top,
-                                          'popular_tags': popular_tags})
-# def login_prepod (request):
-#     if (request.POST):
-#         form = LoginForm(request.POST)
-#         if form.is_valid():
-#             cleaned_data = form.cleaned_date
-#             user = auth.authetificate(**cleaned_data)
-#             if user is not None:
-#                 auth.login(request , user)
-#                 return redirect ('/')
-#
-#     else:
-#         form = LoginForm()
-#     return redirect('/')
-#
+
+def logout_view(request):
+        logout(request)
+        return redirect('/')
+
 
 def base (request):
     return render(request , 'base.html' , {})
 
+
 def question(request, id):
-    question = get_object_or_404(Question, pk = id)
-    flag = 1;
+    question = get_object_or_404(Question, pk=id)
     answers = Question.objects.answers(question)
     answers = paginate(answers, request, 30)
     users_top = Profile.objects.user_top()
@@ -67,31 +76,78 @@ def question(request, id):
     main['is_login'] = 0
     main['users_top'] = users_top
     main['popular_tags'] = popular_tags
-
+    if request.user.is_authenticated:
+        main['username'] = request.user.username
+        main['is_login'] = 1
     return render(request, 'question.html', context = main)
 
-def ask (request):
-    flag = 1;
+@login_required
+def ask(request):
+    if request.POST:
+        form = QuestionForm(
+            request.user.profile,
+            data=request.POST)
+        if form.is_valid():
+            q = form.save()
+            return redirect(reverse(
+                'question', kwargs={
+                    'qid': q.pk
+                }
+            ))
+    else:
+        form = QuestionForm(request.user.profile)
+        flag = 0
+        username = 'nones'
+        if request.user.is_authenticated:
+            flag = 1
+            username = request.user.username
+        users_top = Profile.objects.user_top()
+        popular_tags = Tag.objects.popular_tags()
+
+        return render (request, 'ask.html', {'is_login': flag , 'users_top' : users_top , 'popular_tags' : popular_tags,
+                                             'username': username, 'form': form})
+
+
+def settings(request):
+    flag = 0
+    username = 'none'
+    if request.user.is_authenticated:
+        flag = 1
+        username = request.user.username
     users_top = Profile.objects.user_top()
     popular_tags = Tag.objects.popular_tags()
 
-    return render (request, 'ask.html', {'is_login' : flag , 'users_tops' : users_top , 'popular_tags' : popular_tags})
+    return render(request, 'settings.html' , {'is_login' : flag , 'users_top' : users_top ,
+                                              'popular_tags' : popular_tags,
+                                              'username': username
+                                              })
 
 
-def settings (request):
-    flag = 1;
+def register(request):
+    if request.POST:
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            cdata = form.cleaned_data
+            if cdata['password'] != cdata['repeat_password']:
+                form.add_error(None, 'password and repeat password is not equal')
+            else:
+                try:
+                    user = User.objects.get(username=cdata['username'])
+                    form.add_error(None, 'user with this login existed yet')
+                except User.DoesNotExist:
+                    user = User.objects.create_user(cdata['username'], cdata['email'], cdata['password'])
+                    return redirect('/')  # TODO: правильные редиректы
+    else:
+        form = RegistrationForm()
+    flag = 0
+    username = 'none'
+    if request.user.is_authenticated:
+        flag = 1
+        username = request.user.username
     users_top = Profile.objects.user_top()
     popular_tags = Tag.objects.popular_tags()
-
-    return render(request, 'settings.html' , {'is_login' : flag , 'users_tops' : users_top , 'popular_tags' : popular_tags})
-
-
-def register (request):
-    flag = 0;
-    users_top = Profile.objects.user_top()
-    popular_tags = Tag.objects.popular_tags()
-
-    return render(request, 'register.html', {'is_login' : flag , 'users_tops' : users_top , 'popular_tags' : popular_tags})
+    return render(request, 'register.html', {'is_login': flag , 'users_top': users_top, 'popular_tags' : popular_tags,
+                                             'username': username, 'form': form})
 
 
 
@@ -106,7 +162,6 @@ def paginate(objects_list, request, page_size=10):
 
 
 def tag(request, tagname):
-    flag = 1;
     tag = get_object_or_404(Tag, tagname=tagname)
     questions = Tag.objects.questions(tag)
     questions = paginate (questions, request, 5)
@@ -114,11 +169,15 @@ def tag(request, tagname):
     popular_tags = Tag.objects.popular_tags()
     main = {}
     main['questions'] = questions
-    main['is_login'] = flag
+    main['is_login'] = 0
     main['users_top'] = users_top
     main['popular_tags'] = popular_tags
     main['tagname'] = tagname
+    if request.user.is_authenticated:
+        main['is_login'] = 1
+        main['username'] = request.user.username
     return render(request, 'index.html', context=main)
+
 
 def hot(request):
     questions = Question.objects.hot()
@@ -130,4 +189,11 @@ def hot(request):
     main['is_login'] = 0
     main['users_top'] = users_top
     main['popular_tags'] = popular_tags
+    if request.user.is_authenticated:
+        main['username'] = request.user.username
+        main['is_login'] = 1
     return render(request, 'index.html', context=main)
+
+
+def addlike_question(request, qid):
+    question = Question.objects.get(id=qid)
