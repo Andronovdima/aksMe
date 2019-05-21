@@ -33,7 +33,7 @@
               </div>
             </div>         
           </div>
-    
+
 {# Answers #}
         <h3 class="mt-4">Answers:</h3>
         {% for answer in answers %}
@@ -51,6 +51,9 @@
                 <div class="media-body">
                   <h5 class="mt-0"></h5>
                    {{ answer.text }}
+                    <p id="jj">
+                        is Correct: {{ answer.correct }}
+                    </p>
                 </div>
               </div>
             </div>         

@@ -24,6 +24,13 @@
 
             <button type="submit" class="btn btn-primary">Ask</button>
           </form>
+
+            <form class="mt-5 pt-5"action ="{% url 'ask' %}" method="POST" novalidate>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="OK">
+            {#    {% include 'путь до реализован формы' %}#}
+            </form>
         </div>
 {% endblock %}
 
